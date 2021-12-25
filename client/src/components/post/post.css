@@ -1,11 +1,12 @@
 .post {
-  margin: 0px 25px 40px 25px;
+  margin: 0px 25px 40px 0px;
   flex-direction: row;
   display: flex;
   padding: 12px;
   border-radius: 4px;
   box-shadow: 1px 1px 1px 1px #f8f8f8;
   width: 40%;
+  cursor: pointer;
 }
 
 .postImg {
@@ -22,7 +23,6 @@
 }
 
 .postCat {
-  font-family: "Varela Round", sans-serif;
   font-size: 11px;
   color: #be9656;
   line-height: 20px;

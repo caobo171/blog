@@ -5,7 +5,8 @@ import { PF } from '../../Constants';
 export default function Post({ post }) {
 
 	return (
-		<div className="post" >
+		<Link to={`/post/${post._id}`} className="post" >
+
 			{post.photo ? <img className="postImg" src={PF + post.photo} alt="" /> :
 
 				<img className="postImg" src={`https://previews.123rf.com/images/convisum/convisum1409/convisum140900072/32010327-q-and-a-questions-and-answers.jpg`} alt="" />
@@ -16,14 +17,15 @@ export default function Post({ post }) {
 						<span className="postCat">{c.name}</span>
 					))}
 				</div>
-				<Link to={`/post/${post._id}`} className="link">
+				<div>
 					<span className="postTitle">{post.title}</span>
-				</Link>
+				</div>
 				<p className="postDesc">{post.desc}</p>
 				<div className="postDate">
 					{new Date(post.createdAt).toDateString()}
 				</div>
 			</div>
-		</div>
+
+		</Link>
 	);
 }

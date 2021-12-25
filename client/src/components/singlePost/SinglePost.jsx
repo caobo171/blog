@@ -3,9 +3,11 @@ import { useContext, useEffect, useState } from "react";
 import { useLocation } from "react-router";
 import { Link } from "react-router-dom";
 import { Context } from "../../context/Context";
+import AnswerSection from './AnswerSection';
 import "./singlePost.css";
 
 export default function SinglePost() {
+
 	const location = useLocation();
 	const path = location.pathname.split("/")[2];
 	const [post, setPost] = useState({});
@@ -45,12 +47,10 @@ export default function SinglePost() {
 		} catch (err) { }
 	};
 
+
 	return (
 		<div className="singlePost">
 			<div className="singlePostWrapper">
-				{post.photo && (
-					<img src={PF + post.photo} alt="" className="singlePostImg" />
-				)}
 				{updateMode ? (
 					<input
 						type="text"
@@ -78,15 +78,17 @@ export default function SinglePost() {
 				)}
 				<div className="singlePostInfo">
 					<span className="singlePostAuthor">
-						Author:
+						Hỏi bởi
 						<Link to={`/?user=${post.username}`} className="link">
 							<b> {post.username}</b>
 						</Link>
-					</span>
-					<span className="singlePostDate">
-						{new Date(post.createdAt).toDateString()}
+						&nbsp;
+						vào lúc &nbsp;{`${new Date(post.createdAt).getHours()}:${new Date(post.createdAt).getMinutes()} ${new Date(post.createdAt).getDate()}/${new Date(post.createdAt).getMonth()}/${new Date(post.createdAt).getFullYear()}`}
 					</span>
 				</div>
+				{post.photo && (
+					<img src={PF + post.photo} alt="" className="singlePostImg" />
+				)}
 				{updateMode ? (
 					<textarea
 						className="singlePostDescInput"
@@ -101,6 +103,9 @@ export default function SinglePost() {
 						Update
 					</button>
 				)}
+
+
+				{!updateMode && <><AnswerSection /></>}
 			</div>
 		</div>
 	);

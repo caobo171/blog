@@ -1,0 +1,61 @@
+.answer {
+	padding-top: 50px;
+}
+
+.answerImg {
+	margin-left: 32px;
+	width: 70vw;
+	height: 250px;
+	border-radius: 10px;
+	object-fit: cover;
+}
+
+.writeForm {
+	position: relative;
+}
+
+.answerFormGroup {
+	display: flex;
+	align-items: flex-start;
+}
+
+.writeIcon {
+	margin-top: 20px;
+	width: 25px;
+	height: 25px;
+	border-radius: 50%;
+	border: 1px solid;
+	display: flex;
+	font-size: 20px;
+	color: rgb(121, 118, 118);
+	cursor: pointer;
+}
+
+.writeInput {
+	font-size: 30px;
+	border: none;
+	padding: 20px;
+	width: 70vw;
+}
+
+.writeInput:focus {
+	outline: none;
+}
+
+.writeText {
+	font-size: 20px;
+	height: 100vh;
+}
+
+.writeSubmit {
+	position: absolute;
+	top: 20px;
+	right: 50px;
+	color: white;
+	background-color: teal;
+	padding: 10px;
+	border: none;
+	border-radius: 10px;
+	cursor: pointer;
+	font-size: 16px;
+}
