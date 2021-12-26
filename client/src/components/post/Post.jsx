@@ -22,7 +22,7 @@ export default function Post({ post }) {
 				</div>
 				<p className="postDesc">{post.desc}</p>
 				<div className="postDate">
-					{new Date(post.createdAt).toDateString()}
+					Hỏi bởi <em>{post.username}</em> vào lúc &nbsp;{`${new Date(post.createdAt).getHours()}:${new Date(post.createdAt).getMinutes()} ${new Date(post.createdAt).getDate()}/${new Date(post.createdAt).getMonth()}/${new Date(post.createdAt).getFullYear()}`}
 				</div>
 			</div>
 

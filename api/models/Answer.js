@@ -2,10 +2,9 @@ const mongoose = require("mongoose");
 
 const AnswerSchema = new mongoose.Schema(
 	{
-		title: {
+		question_id: {
 			type: String,
-			required: true,
-			unique: true,
+			required: true
 		},
 		desc: {
 			type: String,

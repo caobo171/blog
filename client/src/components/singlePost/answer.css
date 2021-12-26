@@ -2,12 +2,48 @@
 	padding-top: 50px;
 }
 
+.answer .answerTitle { 
+	margin-bottom: 20px;
+	font-size: 32px;
+	border-top: 1px solid #ddd;
+	padding-top: 20px;
+}
+
 .answerImg {
 	margin-left: 32px;
 	width: 70vw;
 	height: 250px;
 	border-radius: 10px;
 	object-fit: cover;
+}
+
+.singleAnswer {
+	padding-bottom: 20px;
+	border-bottom: 1px solid #ddd;
+	margin-bottom: 40px;
+}
+
+.singleAnswerDesc {
+	color: #666;
+	font-size: 18px;
+	line-height: 25px;
+	white-space: pre-line;
+}
+
+.singleAnswerInfo {
+	margin-bottom: 4px;
+}
+
+.singleAnswerInfo .singlePostAuthor {
+	font-size: 12px;
+	color: #888;
+}
+
+.singleAnswerImg {
+	height: 120px;
+	border-radius: 5px;
+	object-fit: cover;
+
 }
 
 .writeForm {
@@ -31,20 +67,20 @@
 	cursor: pointer;
 }
 
-.writeInput {
-	font-size: 30px;
+.askInput {
+	font-size: 20px;
 	border: none;
 	padding: 20px;
 	width: 70vw;
 }
 
-.writeInput:focus {
+.askInput:focus {
 	outline: none;
 }
 
-.writeText {
+.answerText {
 	font-size: 20px;
-	height: 100vh;
+	height: 80px;
 }
 
 .writeSubmit {

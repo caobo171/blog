@@ -1,37 +1,39 @@
 const router = require("express").Router();
 const User = require("../models/User");
-const Post = require("../models/Answer");
+const Answer = require("../models/Answer");
 
-//CREATE POST
+//CREATE Answer
 router.post("/", async (req, res) => {
-	const newPost = new Post(req.body);
+
+	const answer = new Answer(req.body);
 	try {
-		const savedPost = await newPost.save();
-		res.status(200).json(savedPost);
+		const savedAnswer = await answer.save();
+		res.status(200).json(savedAnswer);
 	} catch (err) {
+		console.log(err);
 		res.status(500).json(err);
 	}
 });
 
-//UPDATE POST
+//UPDATE Answer
 router.put("/:id", async (req, res) => {
 	try {
-		const post = await Post.findById(req.params.id);
-		if (post.username === req.body.username) {
+		const answer = await Answer.findById(req.params.id);
+		if (answer.username === req.body.username) {
 			try {
-				const updatedPost = await Post.findByIdAndUpdate(
+				const updatedAnswer = await Answer.findByIdAndUpdate(
 					req.params.id,
 					{
 						$set: req.body,
 					},
 					{ new: true }
 				);
-				res.status(200).json(updatedPost);
+				res.status(200).json(updatedAnswer);
 			} catch (err) {
 				res.status(500).json(err);
 			}
 		} else {
-			res.status(401).json("You can update only your post!");
+			res.status(401).json("You can update only your answer!");
 		}
 	} catch (err) {
 		res.status(500).json(err);
@@ -41,52 +43,37 @@ router.put("/:id", async (req, res) => {
 //DELETE POST
 router.delete("/:id", async (req, res) => {
 	try {
-		const post = await Post.findById(req.params.id);
-		if (post.username === req.body.username) {
+		const answer = await Answer.findById(req.params.id);
+		if (answer.username === req.body.username) {
 			try {
-				await post.delete();
-				res.status(200).json("Post has been deleted...");
+				await answer.delete();
+				res.status(200).json("Answer has been deleted...");
 			} catch (err) {
 				res.status(500).json(err);
 			}
 		} else {
-			res.status(401).json("You can delete only your post!");
+			res.status(401).json("You can delete only your answer!");
 		}
 	} catch (err) {
 		res.status(500).json(err);
 	}
 });
 
-//GET POST
-router.get("/:id", async (req, res) => {
-	try {
-		const post = await Post.findById(req.params.id);
-		res.status(200).json(post);
-	} catch (err) {
-		res.status(500).json(err);
-	}
-});
 
-//GET ALL POSTS
+
+//GET ALL Answer
 router.get("/", async (req, res) => {
-	const username = req.query.user;
-	const catName = req.query.cat;
+
+	const question_id = req.query.question_id;
 	try {
-		let posts;
-		if (username) {
-			posts = await Post.find({ username });
-		} else if (catName) {
-			posts = await Post.find({
-				categories: {
-					$in: [catName],
-				},
-			});
-		} else {
-			posts = await Post.find();
-		}
-		res.status(200).json(posts);
+		let answers;
+		answers = await Answer.find({
+			question_id: question_id
+		});
+
+		return res.status(200).json(answers);
 	} catch (err) {
-		res.status(500).json(err);
+		return res.status(500).json(err);
 	}
 });
 

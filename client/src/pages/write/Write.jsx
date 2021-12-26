@@ -2,16 +2,18 @@ import { useContext, useState } from "react";
 import "./write.css";
 import axios from "axios";
 import { Context } from "../../context/Context";
+import { toast } from 'react-toastify';
+import LoadingOverlay from 'react-loading-overlay';
 
 export default function Write() {
 	const [title, setTitle] = useState("");
 	const [desc, setDesc] = useState("");
 	const [file, setFile] = useState(null);
 	const { user } = useContext(Context);
-
-	console.log('user', user);
+	const [loading, setLoading] = useState(false);
 
 	const handleSubmit = async (e) => {
+		setLoading(true);
 		e.preventDefault();
 		const newPost = {
 			username: user.username,
@@ -30,11 +32,30 @@ export default function Write() {
 		}
 		try {
 			const res = await axios.post("/posts", newPost);
+			toast.success('Tạo câu hỏi thành công')
 			window.location.replace("/post/" + res.data._id);
 		} catch (err) { }
+
+		setLoading(false);
 	};
 	return (
 		<div className="write">
+			<LoadingOverlay
+				styles={{
+					wrapper: {
+						position: loading ? 'fixed' : 'relative',
+						top: 0,
+						left: 0,
+						bottom: 0,
+						right: 0,
+						zIndex: 100
+					}
+				}}
+				active={loading}
+				spinner
+				text='Đang xử lý...'
+			>
+			</LoadingOverlay>
 			{file && (
 				<img className="writeImg" src={URL.createObjectURL(file)} alt="" />
 			)}
