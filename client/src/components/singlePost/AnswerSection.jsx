@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import { PF } from '../../Constants';
 import { toast } from "react-toastify";
 import LoadingOverlay from 'react-loading-overlay';
+import Avatar from '../../components/ui/Avatar';
 
 export default function AnswerSection(props) {
 
@@ -83,7 +84,7 @@ export default function AnswerSection(props) {
                             onChange={e => setDesc(e.target.value)}
                         ></textarea>
                     </div>
-                    <button className="writeSubmit" type="submit">
+                    <button className="answerSubmit" type="submit">
                         Trả lời
                     </button>
                 </form>
@@ -94,12 +95,12 @@ export default function AnswerSection(props) {
                             <div className="singleAnswer">
                                 <div className="singleAnswerInfo">
                                     <span className="singlePostAuthor">
-                                        Trả lời bởi
+                                        <Avatar src={answer.user_avatar}/>
                                         <Link to={`/?user=${answer.username}`} className="link">
                                             <b> {answer.username}</b>
                                         </Link>
                                         &nbsp;
-                                        vào lúc {`${new Date(answer.createdAt).getHours()}:${new Date(answer.createdAt).getMinutes()} ${new Date(answer.createdAt).getDate()}/${new Date(answer.createdAt).getMonth()}/${new Date(answer.createdAt).getFullYear()}`}
+                                        trả lời lúc {`${new Date(answer.createdAt).getHours()}:${new Date(answer.createdAt).getMinutes()} ${new Date(answer.createdAt).getDate()}/${new Date(answer.createdAt).getMonth()}/${new Date(answer.createdAt).getFullYear()}`}
                                     </span>
                                 </div>
                                 {answer.photo && (

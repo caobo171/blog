@@ -72,3 +72,23 @@
 	cursor: pointer;
 	margin-left: 15px;
 }
+
+
+@media (max-width: 400px) {
+	.top {
+		padding-left: 12px;
+		padding-right: 8px;
+	}
+
+	.topCenter {
+		display: none;
+	}
+
+	.topRight {
+		flex: 2
+	}
+
+	.topLeft {
+		flex: 6
+	}
+}

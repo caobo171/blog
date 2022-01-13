@@ -18,7 +18,7 @@ function App() {
 		<Router>
 			<ToastContainer/>
 			<TopBar />
-			<div style={{maxWidth: 1200, width: '80%', margin: 'auto'}}>
+			<div class='container'>
 				<Switch>
 					<Route exact path="/">
 						<Home />

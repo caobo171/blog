@@ -5,7 +5,7 @@
   padding: 12px;
   border-radius: 4px;
   box-shadow: 1px 1px 1px 1px #f8f8f8;
-  width: 40%;
+  width: 90%;
   cursor: pointer;
   text-decoration: none;
 }
@@ -53,6 +53,6 @@
   overflow: hidden;
   text-overflow: ellipsis;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
 }

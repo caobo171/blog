@@ -6,6 +6,7 @@ import { Context } from "../../context/Context";
 import { PF } from '../../Constants';
 import AnswerSection from './AnswerSection';
 import { toast } from 'react-toastify';
+import Avatar from '../../components/ui/Avatar';
 import LoadingOverlay from 'react-loading-overlay';
 import "./singlePost.css";
 
@@ -16,6 +17,8 @@ export default function SinglePost() {
 	const [post, setPost] = useState({});
 	const [answers, setAnswers] = useState([]);
 	const { user } = useContext(Context);
+
+	console.log('user', user);
 	const [title, setTitle] = useState("");
 	const [desc, setDesc] = useState("");
 	const [updateMode, setUpdateMode] = useState(false);
@@ -72,7 +75,7 @@ export default function SinglePost() {
 						position: loading ? 'fixed' : 'relative',
 						top: 0,
 						left: 0,
-						bottom: 0, 
+						bottom: 0,
 						right: 0,
 						zIndex: 100
 					}
@@ -85,9 +88,7 @@ export default function SinglePost() {
 			<div className="singlePost">
 
 				<div className="singlePostWrapper">
-					<Link className="singlePostBack" to='/'>
-						&larr;
-					</Link>
+
 					{updateMode ? (
 						<input
 							type="text"
@@ -98,31 +99,39 @@ export default function SinglePost() {
 						/>
 					) : (
 						<h1 className="singlePostTitle">
+							<Link className="singlePostBack" to='/'>
+								&larr;
+							</Link>
 							{title}
-							{post.username === user?.username && (
-								<div className="singlePostEdit">
-									<i
-										className="singlePostIcon far fa-edit"
-										onClick={() => setUpdateMode(true)}
-									></i>
-									<i
-										className="singlePostIcon far fa-trash-alt"
-										onClick={handleDelete}
-									></i>
-								</div>
-							)}
 						</h1>
 					)}
-					<div className="singlePostInfo">
-						<span className="singlePostAuthor">
-							Hỏi bởi
-							<Link to={`/?user=${post.username}`} className="link">
-								<b> {post.username}</b>
-							</Link>
-							&nbsp;
-							vào lúc &nbsp;{`${new Date(post.createdAt).getHours()}:${new Date(post.createdAt).getMinutes()} ${new Date(post.createdAt).getDate()}/${new Date(post.createdAt).getMonth()}/${new Date(post.createdAt).getFullYear()}`}
-						</span>
-					</div>
+
+					{!updateMode && (
+						<div className="singlePostInfo">
+							<span className="singlePostAuthor">
+
+								<Avatar src={post.user_avatar}></Avatar>
+								<Link to={`/?user=${post.username}`} className="link">
+									<b> {post.username}</b>
+								</Link>
+								&nbsp;
+								hỏi lúc &nbsp;{`${new Date(post.createdAt).getHours()}:${new Date(post.createdAt).getMinutes()} ${new Date(post.createdAt).getDate()}/${new Date(post.createdAt).getMonth()}/${new Date(post.createdAt).getFullYear()}`}
+
+								{post.username === user?.username && <>
+									&nbsp;&middot;&nbsp;
+									<span
+										className="post-action"
+										onClick={() => setUpdateMode(true)}
+									>Sửa</span>
+									&nbsp;&middot;&nbsp;
+									<span
+										className="post-action"
+										onClick={handleDelete}
+									>Xoá</span>
+								</>}
+
+							</span>
+						</div>)}
 					{post.photo && (
 						<img src={PF + post.photo} alt="" className="singlePostImg" />
 					)}
@@ -136,9 +145,14 @@ export default function SinglePost() {
 						<p className="singlePostDesc">{desc}</p>
 					)}
 					{updateMode && (
-						<button className="singlePostButton" onClick={handleUpdate}>
-							Cập nhật
-						</button>
+						<div class='singlePostButtons'>
+							<button className="singlePostButton" onClick={() => setUpdateMode(false)}>
+								Quay lại
+							</button>
+							<button className="singlePostButton" onClick={handleUpdate}>
+								Cập nhật
+							</button>
+						</div>
 					)}
 
 

@@ -4,10 +4,19 @@
 
 .singlePostWrapper {
 	padding: 20px;
-	padding-right: 0;
+	width: 60%;
 	display: flex;
 	flex-direction: column;
 	position: relative;
+	margin: auto;
+}
+
+.post-action:hover {
+	text-decoration: underline;
+}
+
+.post-action {
+	cursor: pointer;
 }
 
 .singlePostBack {
@@ -39,9 +48,9 @@
 }
 
 .singlePostTitleInput {
-	margin: 10px;
 	font-size: 28px;
-	text-align: center;
+
+	margin-bottom: 8px;
 	border: none;
 	color: gray;
 	border-bottom: 1px solid lightgray;
@@ -80,7 +89,6 @@
 .singlePostDesc {
 	color: #666;
 	font-size: 18px;
-	line-height: 25px;
 	white-space: pre-line;
 	border-top: 1px solid #ddd;
 	padding-top: 20px;
@@ -91,11 +99,17 @@
 	border: none;
 	color: #666;
 	font-size: 18px;
-	line-height: 25px;
+	height: 240px
 }
 
 .singlePostDescInput:focus {
 	outline: none;
+}
+
+.singlePostButtons {
+	display: flex;
+	align-self: flex-end;
+	flex-direction: row;
 }
 
 .singlePostButton {
@@ -106,6 +120,18 @@
 	color: white;
 	border-radius: 5px;
 	cursor: pointer;
-	align-self: flex-end;
+	margin-left: 20px;
 	margin-top: 20px;
+}
+
+
+@media (max-width: 400px) {
+	.singlePostBack {
+		position: relative;
+		top: 0px;
+	}
+
+	.singlePostWrapper {
+		width: 90%;
+	}
 }

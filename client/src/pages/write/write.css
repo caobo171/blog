@@ -3,8 +3,8 @@
 }
 
 .writeImg {
-  margin-left: 150px;
-  width: 70vw;
+  width: 100%;
+  margin: auto;
   height: 250px;
   border-radius: 10px;
   object-fit: cover;
@@ -15,9 +15,11 @@
 }
 
 .writeFormGroup {
-  margin-left: 150px;
+  width: 60%;
+  margin: auto;
   display: flex;
   align-items: center;
+  box-sizing: border-box;
 }
 
 .writeIcon {
@@ -60,4 +62,17 @@
   border-radius: 10px;
   cursor: pointer;
   font-size: 16px;
+}
+
+
+@media (max-width: 380px) {
+  .writeFormGroup {
+    width: 100%;
+    padding: 10px 20px;
+  }
+
+  .writeSubmit {
+    right: 12px;
+    top: -24px;
+  }
 }
