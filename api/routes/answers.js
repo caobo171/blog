@@ -71,7 +71,41 @@ router.get("/", async (req, res) => {
 			question_id: question_id
 		});
 
-		return res.status(200).json(answers);
+
+		var user_names = comments.map(e => e.username);
+
+		var users = await User.find({
+			user_name: user_names
+		});
+
+		var users_array = {};
+		for (var i = 0; i < users.length; i++) {
+			users_array[users[i]._id] = users[i];
+		}
+
+		var answers_data = [];
+		for (var i = 0; i < answers.length; i++) {
+			var user_data = users_array[answers[i].user_id];
+
+		   
+			if (!user_data) {
+				continue;
+			}
+
+			if (!user_data.avatar) {
+				user_data.avatar = `upload/no_avatar_0.jpg`;
+			}
+
+			var obj = {
+				...answers[i]._doc,
+				user_username: user_data.username,
+				user_avatar: user_data.profilePic,
+			};
+
+			answers_data.push(obj);
+		}
+
+		return res.status(200).json(answers_data);
 	} catch (err) {
 		return res.status(500).json(err);
 	}

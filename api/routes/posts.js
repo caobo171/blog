@@ -69,20 +69,115 @@ router.get("/:id", async (req, res) => {
 		}).sort({createdAt: -1});
 
 
-		res.status(200).json({post, answers});
+		var user_names = answers.map(e => e.username);
+		user_names.push(post.username);
+
+		var users = await User.find({
+			username: user_names
+		});
+
+		var users_array = {};
+		for (var i = 0; i < users.length; i++) {
+			users_array[users[i].username] = users[i];
+		}
+		var user_data = users_array[post.username];
+
+		var post_data = {
+			...post._doc,
+			user_username: user_data.username,
+			user_avatar: user_data.profilePic
+		};
+
+		var answers_data = [];
+		for (var i = 0; i < answers.length; i++) {
+			var user_data = users_array[answers[i].username];
+
+		   
+			if (!user_data) {
+				continue;
+			}
+
+			if (!user_data.avatar) {
+				user_data.avatar = `upload/no_avatar_0.jpg`;
+			}
+
+			var obj = {
+				...answers[i]._doc,
+				user_username: user_data.username,
+				user_avatar: user_data.profilePic,
+			};
+
+			answers_data.push(obj);
+		}
+
+		res.status(200).json({
+			post: post_data, 
+			answers: answers_data});
 	} catch (err) {
+		console.log(err)
 		res.status(500).json(err);
 	}
 });
 
 //GET ALL POSTS
 router.get("/", async (req, res) => {
-	const username = req.query.user;
-	const catName = req.query.cat;
+	var {page, page_size, q} = req.query;
+	if (!page) {
+		page = 1;
+	}
+
+	page = Number(page);
+	if (!page_size) {
+		page_size = 10;
+	}
+
+	var params = {};
+	if (q) {
+		params = {
+			$text: { $search: q }
+		}
+	}
+
 	try {
 		let posts;
-		posts = await Post.find().sort({createdAt: -1});
-		res.status(200).json(posts);
+		posts = await Post.find(params)
+		.skip((Math.max(0, page - 1)) * page_size)
+		.limit(page_size).sort({createdAt: -1});
+
+		var user_names = posts.map(e => e.username);
+		var users = await User.find({
+			username: user_names
+		});
+
+		var users_array = {};
+		for (var i = 0; i < users.length; i++) {
+			users_array[users[i].username] = users[i];
+		}
+
+		var posts_data = [];
+		for (var i = 0; i < posts.length; i++) {
+			var user_data = users_array[posts[i].username];
+
+		   
+			if (!user_data) {
+				continue;
+			}
+
+			if (!user_data.avatar) {
+				user_data.avatar = `images/no_avatar_0.jpg`;
+			}
+
+			var obj = {
+				...posts[i]._doc,
+				user_username: user_data.username,
+				user_avatar: user_data.profilePic,
+			};
+
+			posts_data.push(obj);
+		}
+
+
+		res.status(200).json(posts_data);
 	} catch (err) {
 		res.status(500).json(err);
 	}
