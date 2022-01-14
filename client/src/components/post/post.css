@@ -2,9 +2,10 @@
   margin: 0px 25px 40px 0px;
   flex-direction: row;
   display: flex;
-  padding: 12px;
-  border-radius: 4px;
-  box-shadow: 1px 1px 1px 1px #f8f8f8;
+  padding: 12px 24px;
+  box-sizing: border-box;
+  border-radius: 8px;
+  box-shadow: 1px 1px 1px 1px #e1e1e1;
   width: 90%;
   cursor: pointer;
   text-decoration: none;

@@ -5,6 +5,7 @@ import Write from "./pages/write/Write";
 import Settings from "./pages/settings/Settings";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
+import Users from './pages/user/Users';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "./context/Context";
@@ -27,6 +28,7 @@ function App() {
 					<Route path="/login">{user ? <Home /> : <Login />}</Route>
 					<Route path="/ask">{user ? <Write /> : <Register />}</Route>
 					<Route path="/settings">{user ? <Settings /> : <Register />}</Route>
+					<Route path="/admin">{user ? <Users /> : <Login />}</Route>
 					<Route path="/post/:postId">
 						<Single />
 					</Route>

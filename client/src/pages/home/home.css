@@ -18,3 +18,12 @@
     color: #000;
     font-weight: bold;
 }
+
+.search {
+    font-size: 18px;
+    padding: 12px 20px;
+    border: 1px solid #dfdfdf;
+    border-radius: 8px;
+    width: 80%;
+    margin: 16px 50px 40px 0px;
+}

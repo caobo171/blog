@@ -179,6 +179,7 @@ router.get("/", async (req, res) => {
 
 		res.status(200).json(posts_data);
 	} catch (err) {
+		console.log(err);
 		res.status(500).json(err);
 	}
 });

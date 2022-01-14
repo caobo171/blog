@@ -1,0 +1,39 @@
+.users-table {
+    border-collapse: collapse;
+    margin-bottom: 20px;
+    margin-top: 20px;
+}
+.users-table thead {
+    background: #f8f8f8;
+}
+
+td, th {
+    border: 1px solid #dddddd;
+    text-align: left;
+    padding: 8px;
+  }
+
+.users-table thead td{
+    padding: 8px 12px;
+}
+
+.users-table tbody td{
+    padding: 8px 12px;
+}
+
+.user-item .user-info {
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+}
+
+.user-item .user-info .user-name {
+    margin-left: 12px;
+}
+
+.user-item .user-avatar {
+    height: 40px;
+    width: 40px;
+
+    border-radius: 50%;
+}

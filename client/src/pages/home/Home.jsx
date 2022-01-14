@@ -5,13 +5,16 @@ import Sidebar from "../../components/sidebar/Sidebar";
 import "./home.css";
 import axios from "axios";
 import LoadingOverlay from 'react-loading-overlay';
-import { Link, useLocation } from 'react-router-dom';
+import { Link, useLocation, useHistory } from 'react-router-dom';
 
 export default function Home() {
+
 	const [posts, setPosts] = useState([]);
 	const { search } = useLocation();
+	const history = useHistory();
 
 	const [loading, setLoading] = useState(true);
+	const [search_str, setSearch] = useState('');
 
 
 	const location = useLocation();
@@ -53,15 +56,24 @@ export default function Home() {
 				text='Đang xử lý...'
 			>
 			</LoadingOverlay>
+
+
 			<Header />
 
 			<div className="home">
+				<input placeholder="Tìm kiếm câu hỏi" className="search"
+					onChange={(e) => setSearch(e.target.value)}
+					onKeyDown={(e) => {
+						if (e.key == 'Enter') {
+							history.push(`?page=${page}&q=${search_str}`);
+						}
 
+					}} />
 				{
 					!posts.length && <img style={{
-						width: 400, 
+						width: 400,
 						margin: 'auto'
-					}} src='/images/empty.png'/>
+					}} src='/images/empty.png' />
 				}
 
 				<Posts posts={posts} />
