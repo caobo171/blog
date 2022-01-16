@@ -6,6 +6,7 @@ import Settings from "./pages/settings/Settings";
 import Login from "./pages/login/Login";
 import Register from "./pages/register/Register";
 import Users from './pages/user/Users';
+import User from './pages/user/User';
 import { BrowserRouter as Router, Switch, Route, Link } from "react-router-dom";
 import { useContext } from "react";
 import { Context } from "./context/Context";
@@ -17,7 +18,7 @@ function App() {
 	const { user } = useContext(Context);
 	return (
 		<Router>
-			<ToastContainer/>
+			<ToastContainer />
 			<TopBar />
 			<div class='container'>
 				<Switch>
@@ -31,6 +32,10 @@ function App() {
 					<Route path="/admin">{user ? <Users /> : <Login />}</Route>
 					<Route path="/post/:postId">
 						<Single />
+					</Route>
+
+					<Route path="/user/:username">
+						<User />
 					</Route>
 				</Switch>
 			</div>

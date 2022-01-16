@@ -18,7 +18,7 @@ export default function TopBar() {
 				<ul className="topList">
 					<li className="topListItem">
 						<Link className="link" to="/">
-							TRANG CHỦ
+							HOME
 						</Link>
 					</li>
 					<li className="topListItem">
@@ -26,11 +26,11 @@ export default function TopBar() {
 							HỎI
 						</Link>
 					</li>
-					<li className="topListItem">
-						<Link className="link" to="/admin">
+					{user && user.role && parseInt(user.role) && <li className="topListItem">
+						<Link className="link admin-item" to="/admin">
 							Admin
 						</Link>
-					</li>
+					</li>}
 					<li className="topListItem" onClick={handleLogout}>
 						{user && "LOGOUT"}
 					</li>
@@ -41,9 +41,14 @@ export default function TopBar() {
 			</div>
 			<div className="topRight">
 				{user ? (
-					<Link to="/settings">
-						<img className="topImg" src={PF + user.profilePic} alt="" />
-					</Link>
+					<ul className="topList">
+						<Link className='topListItem' to="/settings">
+							<img className="topImg" src={PF + user.profilePic} alt="" />
+						</Link>
+						<Link to={`/user/${user.username}`} className="link topName">
+							{user.username}
+						</Link>
+					</ul>
 				) : (
 					<ul className="topList">
 						<li className="topListItem">
@@ -58,7 +63,6 @@ export default function TopBar() {
 						</li>
 					</ul>
 				)}
-				<i className="topSearchIcon fas fa-search"></i>
 			</div>
 		</div>
 	);

@@ -61,14 +61,16 @@ export default function Home() {
 			<Header />
 
 			<div className="home">
-				<input placeholder="Tìm kiếm câu hỏi" className="search"
-					onChange={(e) => setSearch(e.target.value)}
-					onKeyDown={(e) => {
-						if (e.key == 'Enter') {
-							history.push(`?page=${page}&q=${search_str}`);
-						}
+				<div>
+					<input placeholder="Tìm kiếm câu hỏi" className="search"
+						onChange={(e) => setSearch(e.target.value)}
+						onKeyDown={(e) => {
+							if (e.key == 'Enter') {
+								history.push(`?page=${page}&q=${search_str}`);
+							}
 
-					}} />
+						}} />
+				</div>
 				{
 					!posts.length && <img style={{
 						width: 400,

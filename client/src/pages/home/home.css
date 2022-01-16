@@ -1,6 +1,7 @@
 .home{
     display: flex;
     flex-direction: column;
+    position: relative;
 }
 
 
@@ -24,6 +25,8 @@
     padding: 12px 20px;
     border: 1px solid #dfdfdf;
     border-radius: 8px;
-    width: 80%;
-    margin: 16px 50px 40px 0px;
+    position: absolute;
+    right: 0px;
+    top: -80px;
+    margin: 16px 0px 40px 0px;
 }

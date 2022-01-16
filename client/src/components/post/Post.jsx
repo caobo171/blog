@@ -23,8 +23,12 @@ export default function Post({ post }) {
 				</div>
 				<p className="postDesc">{post.desc}</p>
 				<div className="postDate">
-					<Avatar src={post.user_avatar}/> <b>{post.username}</b> đã hỏi vào lúc &nbsp;{`${new Date(post.createdAt).getHours()}:${new Date(post.createdAt).getMinutes()} ${new Date(post.createdAt).getDate()}/${new Date(post.createdAt).getMonth()}/${new Date(post.createdAt).getFullYear()}`}
+					<Avatar src={post.user_avatar} /> <b>{post.username}</b> đã hỏi vào lúc &nbsp;{`${new Date(post.createdAt).getHours()}:${new Date(post.createdAt).getMinutes()} ${new Date(post.createdAt).getDate()}/${new Date(post.createdAt).getMonth()}/${new Date(post.createdAt).getFullYear()}`}
 				</div>
+
+				{post.status && parseInt(post.status) && <div className='accept_string'>
+						Đã được trả lời
+				</div>}
 			</div>
 
 		</Link>

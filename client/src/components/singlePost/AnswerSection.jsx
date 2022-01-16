@@ -15,6 +15,18 @@ export default function AnswerSection(props) {
     const { user } = useContext(Context);
     const [loading, setLoading] = useState(false);
 
+
+    const onAccept = async (answer_id) => {
+        setLoading(true);
+        const res = await axios.post("/answers/accept", {
+            answer_id: answer_id
+        });
+
+        toast.success('Chấp nhận câu trả lời thành công');
+        props.getPost();
+        setLoading(false);
+    }
+
     const handleSubmit = async (e) => {
         setLoading(true);
         e.preventDefault();
@@ -69,7 +81,7 @@ export default function AnswerSection(props) {
                 <form className="writeForm" onSubmit={handleSubmit}>
                     <div className="answerFormGroup">
                         <label htmlFor="fileInput" title='Đăng ảnh'>
-                            <i className="writeIcon fas fa-plus"></i>
+                            <i className="writeIcon fas fa-image"></i>
                         </label>
                         <input
                             type="file"
@@ -90,17 +102,31 @@ export default function AnswerSection(props) {
                 </form>
 
                 {
-                    props.answers.map(answer => (
-                        <React.Fragment>
-                            <div className="singleAnswer">
+                    props.answers.map(answer => {
+
+                        var accepted = props.question.answer_accept && props.question.answer_accept.id == answer._id;
+                        return <React.Fragment key={answer._id}>
+                            <div className={`singleAnswer ${accepted ? 'accepted' : ''}`}>
+
+                                {user.username == props.question.username || (user.role && parseInt(user.role)) && (
+                                    <div className="accept" title='Chấp nhận câu trả lời này'>
+                                        <i className="fa fa-check" onClick={() => onAccept(answer._id)}></i>
+                                    </div>
+                                )}
+
                                 <div className="singleAnswerInfo">
                                     <span className="singlePostAuthor">
-                                        <Avatar src={answer.user_avatar}/>
-                                        <Link to={`/?user=${answer.username}`} className="link">
+                                        <Avatar src={answer.user_avatar} />
+                                        <Link to={`/user/${answer.username}`} className="link">
                                             <b> {answer.username}</b>
                                         </Link>
                                         &nbsp;
                                         trả lời lúc {`${new Date(answer.createdAt).getHours()}:${new Date(answer.createdAt).getMinutes()} ${new Date(answer.createdAt).getDate()}/${new Date(answer.createdAt).getMonth()}/${new Date(answer.createdAt).getFullYear()}`}
+                                        {
+                                            accepted && (
+                                                <>&nbsp;&middot;&nbsp;<span className="accept_string">Đã được chấp nhận</span></>
+                                            )
+                                        }
                                     </span>
                                 </div>
                                 {answer.photo && (
@@ -110,9 +136,10 @@ export default function AnswerSection(props) {
                                 <p className="singleAnswerDesc">{answer.desc}</p>
                             </div>
                         </React.Fragment>
-                    ))
+                    })
                 }
             </div>
         </>
     );
 }
+

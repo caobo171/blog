@@ -68,6 +68,48 @@ router.delete("/:id", async (req, res) => {
 	}
 });
 
+
+//GET USER
+router.get("/profile/:username", async (req, res) => {
+	try {
+
+		const user = await User.findOne({username: req.params.username});
+		
+		posts = await Post.find({username: user.username})
+
+		var user_data = {
+			...user._doc,
+			user_username: user.username,
+			user_avatar: user.profilePic,
+		}
+
+		var posts_data = [];
+		for (var i = 0; i < posts.length; i++) {
+
+			if (!user.avatar) {
+				user.avatar = `images/no_avatar_0.jpg`;
+			}
+
+			var obj = {
+				...posts[i]._doc,
+				user_username: user.username,
+				user_avatar: user.profilePic,
+			};
+
+			posts_data.push(obj);
+			
+		}
+		res.status(200).json({
+			posts: posts_data,
+			user: user_data
+		});
+	} catch (err) {
+		console.log(err);
+		res.status(500).json(err);
+	}
+});
+
+
 //GET USER
 router.get("/:id", async (req, res) => {
 	try {
@@ -75,6 +117,7 @@ router.get("/:id", async (req, res) => {
 		const { password, ...others } = user._doc;
 		res.status(200).json(others);
 	} catch (err) {
+		console.log(err);
 		res.status(500).json(err);
 	}
 });

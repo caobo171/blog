@@ -19,6 +19,13 @@ const PostSchema = new mongoose.Schema(
       type: String,
       required: true,
     },
+    status: {
+      type: Number
+    },
+    answer_accept: {
+      id: { type: String },
+      content: { type: String }
+    },
     categories: {
       type: Array,
       required: false,
@@ -27,6 +34,6 @@ const PostSchema = new mongoose.Schema(
   { timestamps: true }
 );
 
-PostSchema.index({'$**': 'text'});
+PostSchema.index({ '$**': 'text' });
 
 module.exports = mongoose.model("Post", PostSchema);

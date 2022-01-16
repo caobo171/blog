@@ -18,23 +18,22 @@ export default function SinglePost() {
 	const [answers, setAnswers] = useState([]);
 	const { user } = useContext(Context);
 
-	console.log('user', user);
 	const [title, setTitle] = useState("");
 	const [desc, setDesc] = useState("");
 	const [updateMode, setUpdateMode] = useState(false);
 
 	const [loading, setLoading] = useState(true);
 
-	useEffect(() => {
-		const getPost = async () => {
+	const getPost = async () => {
+		const res = await axios.get("/posts/" + path);
+		setPost(res.data.post);
+		setTitle(res.data.post.title);
+		setDesc(res.data.post.desc);
+		setAnswers(res.data.answers);
+		setLoading(false);
+	};
 
-			const res = await axios.get("/posts/" + path);
-			setPost(res.data.post);
-			setTitle(res.data.post.title);
-			setDesc(res.data.post.desc);
-			setAnswers(res.data.answers);
-			setLoading(false);
-		};
+	useEffect(() => {
 		getPost();
 	}, [path]);
 
@@ -111,7 +110,7 @@ export default function SinglePost() {
 							<span className="singlePostAuthor">
 
 								<Avatar src={post.user_avatar}></Avatar>
-								<Link to={`/?user=${post.username}`} className="link">
+								<Link to={`/user/${post.username}`} className="link">
 									<b> {post.username}</b>
 								</Link>
 								&nbsp;
@@ -156,7 +155,9 @@ export default function SinglePost() {
 					)}
 
 
-					{!updateMode && post && Object.keys(post).length && <><AnswerSection answers={answers} question={post} /></>}
+					{!updateMode && post && Object.keys(post).length && <><AnswerSection 
+					getPost={getPost}
+					answers={answers} question={post} /></>}
 				</div>
 			</div>
 		</>

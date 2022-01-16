@@ -1,0 +1,31 @@
+.user-profile {
+    display: flex;
+    flex-direction: column;
+    position: relative;
+    margin-bottom: 80px;
+}
+
+.user-profile .user-header {
+    display: flex;
+    flex-direction: row;
+    margin-top: 40px;
+    align-items: center;
+    padding-bottom: 20px;
+    border-bottom: 1px solid #ddd;
+}
+
+.user-profile .user-header .username {
+    margin-bottom: 12px;
+    font-size: 18px;
+}
+
+.user-profile .user-header .date {
+    color: #888;
+}
+
+.user-profile .user-header .user-avatar{
+    height: 80px; 
+    width: 80px;
+    border-radius: 50%;
+    margin-right: 20px;
+}

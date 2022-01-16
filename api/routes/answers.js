@@ -1,6 +1,24 @@
 const router = require("express").Router();
 const User = require("../models/User");
 const Answer = require("../models/Answer");
+const Post = require("../models/Post");
+
+
+router.post('/accept', async (req, res) => {
+	const { answer_id } = req.body;
+	const answer = await Answer.findById(answer_id);
+
+	const post = await Post.findById(answer.question_id);
+
+	post.status = 1;
+	post.answer_accept = {
+		id: answer._id,
+		content: answer.desc
+	}
+
+	await post.save();
+	res.status(200).json(post);
+})
 
 //CREATE Answer
 router.post("/", async (req, res) => {
@@ -87,7 +105,7 @@ router.get("/", async (req, res) => {
 		for (var i = 0; i < answers.length; i++) {
 			var user_data = users_array[answers[i].user_id];
 
-		   
+
 			if (!user_data) {
 				continue;
 			}

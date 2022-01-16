@@ -52,7 +52,9 @@
 	margin: 0;
 	padding: 0;
 	list-style: none;
+	align-items: center;
 }
+
 
 .topListItem {
 	margin-right: 20px;
@@ -91,5 +93,13 @@
 
 	.topLeft {
 		flex: 6
+	}
+
+	.topName {
+		display: none;
+	}
+
+	.admin-item{
+		display:none;
 	}
 }

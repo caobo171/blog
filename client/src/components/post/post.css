@@ -1,14 +1,15 @@
 .post {
-  margin: 0px 25px 40px 0px;
+  margin: 0px 0px 40px 0px;
   flex-direction: row;
   display: flex;
-  padding: 12px 24px;
+  padding: 18px 28px;
   box-sizing: border-box;
   border-radius: 8px;
-  box-shadow: 1px 1px 1px 1px #e1e1e1;
-  width: 90%;
+  border: 1px solid #e1e1e1;
+  width: 100%;
   cursor: pointer;
   text-decoration: none;
+  position: relative;
 }
 
 .postImg {
@@ -56,4 +57,10 @@
   display: -webkit-box;
   -webkit-line-clamp: 2;
   -webkit-box-orient: vertical;
+}
+
+.post .accept_string {
+  position: absolute;
+  right: 20px;
+  color: rgb(30, 184, 30);
 }

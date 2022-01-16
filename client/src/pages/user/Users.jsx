@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { useContext, useEffect, useState } from "react";
 import Avatar from '../../components/ui/Avatar';
 
 import { PF } from '../../Constants';
@@ -7,6 +7,7 @@ import LoadingOverlay from 'react-loading-overlay';
 import { Link, useLocation } from 'react-router-dom';
 import './users.css'
 import { toast } from "react-toastify";
+import { Context } from "../../context/Context";
 
 const Users = () => {
 
@@ -14,6 +15,7 @@ const Users = () => {
     const { search } = useLocation();
 
     const [loading, setLoading] = useState(true);
+    const {user} = useContext(Context);
 
     const location = useLocation();
 
@@ -34,6 +36,10 @@ const Users = () => {
     useEffect(() => {
         fetchUsers();
     }, [search]);
+
+    if (!user.role || !parseInt(user.role)) {
+        return ('Bạn không có quyền vào trang này')
+    }
 
     return (
         <>
@@ -79,7 +85,7 @@ const Users = () => {
                     </thead>
                     <tbody>
                         {
-                            users.map(user => <UserItem key={user._id} user={user} setLoading={setLoading} fetchUsers={fetchUsers}/>)
+                            users.map(user => <UserItem key={user._id} user={user} setLoading={setLoading} fetchUsers={fetchUsers} />)
                         }
                     </tbody>
                 </table>
@@ -130,7 +136,9 @@ const UserItem = ({ user, setLoading, fetchUsers }) => {
             <td>
                 <div className='user-info'>
                     <img className='user-avatar' src={PF + user.user_avatar}></img>
-                    <div className='user-name'>{user.user_username}</div>
+                    <div className='user-name'>
+                        <Link to={`/user/${user.user_username}`}>{user.user_username}</Link>
+                    </div>
                 </div>
 
             </td>
