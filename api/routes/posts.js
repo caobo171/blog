@@ -44,6 +44,15 @@ router.put("/:id", async (req, res) => {
 router.delete("/:id", async (req, res) => {
 	try {
 		const post = await Post.findById(req.params.id);
+
+		const answers = await Answer.find({
+			question_id: post._id
+		}).sort({ createdAt: -1 });
+
+		for (answer in answers) {
+			await answer.delete();
+		}
+
 		if (post.username === req.body.username) {
 			try {
 				await post.delete();
@@ -66,7 +75,7 @@ router.get("/:id", async (req, res) => {
 
 		const answers = await Answer.find({
 			question_id: post._id
-		}).sort({createdAt: -1});
+		}).sort({ createdAt: -1 });
 
 
 		var user_names = answers.map(e => e.username);
@@ -92,7 +101,7 @@ router.get("/:id", async (req, res) => {
 		for (var i = 0; i < answers.length; i++) {
 			var user_data = users_array[answers[i].username];
 
-		   
+
 			if (!user_data) {
 				continue;
 			}
@@ -111,8 +120,9 @@ router.get("/:id", async (req, res) => {
 		}
 
 		res.status(200).json({
-			post: post_data, 
-			answers: answers_data});
+			post: post_data,
+			answers: answers_data
+		});
 	} catch (err) {
 		console.log(err)
 		res.status(500).json(err);
@@ -121,7 +131,7 @@ router.get("/:id", async (req, res) => {
 
 //GET ALL POSTS
 router.get("/", async (req, res) => {
-	var {page, page_size, q} = req.query;
+	var { page, page_size, q } = req.query;
 	if (!page) {
 		page = 1;
 	}
@@ -141,8 +151,8 @@ router.get("/", async (req, res) => {
 	try {
 		let posts;
 		posts = await Post.find(params)
-		.skip((Math.max(0, page - 1)) * page_size)
-		.limit(page_size).sort({createdAt: -1});
+			.skip((Math.max(0, page - 1)) * page_size)
+			.limit(page_size).sort({ createdAt: -1 });
 
 		var user_names = posts.map(e => e.username);
 		var users = await User.find({
@@ -158,7 +168,7 @@ router.get("/", async (req, res) => {
 		for (var i = 0; i < posts.length; i++) {
 			var user_data = users_array[posts[i].username];
 
-		   
+
 			if (!user_data) {
 				continue;
 			}

@@ -31,7 +31,8 @@ function App() {
 					<Route path="/settings">{user ? <Settings /> : <Register />}</Route>
 					<Route path="/admin">{user ? <Users /> : <Login />}</Route>
 					<Route path="/post/:postId">
-						<Single />
+						{user ? <Single /> : <Login />}
+
 					</Route>
 
 					<Route path="/user/:username">

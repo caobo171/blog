@@ -55,6 +55,10 @@ export default function AnswerSection(props) {
         setLoading(false);
     };
 
+    if (!props.question) {
+        return "Trang không tìm thấy"
+    }
+
     return (
         <>
             <LoadingOverlay
