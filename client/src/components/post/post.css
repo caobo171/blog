@@ -64,3 +64,11 @@
   right: 20px;
   color: rgb(30, 184, 30);
 }
+
+
+@media (max-width: 400px) {
+  .post .accept_string {
+    position: relative;
+    right: 0px;
+  }
+}

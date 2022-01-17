@@ -62,7 +62,7 @@ export default function Write() {
 			<form className="writeForm" onSubmit={handleSubmit}>
 				<div className="writeFormGroup">
 					<label htmlFor="fileInput" title='Đăng ảnh'>
-						<i className="writeIcon fas fa-plus"></i>
+						<i className="writeIcon fas fa-image"></i>
 					</label>
 					<input
 						type="file"

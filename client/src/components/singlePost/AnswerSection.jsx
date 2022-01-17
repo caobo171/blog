@@ -109,10 +109,11 @@ export default function AnswerSection(props) {
                     props.answers.map(answer => {
 
                         var accepted = props.question.answer_accept && props.question.answer_accept.id == answer._id;
+
                         return <React.Fragment key={answer._id}>
                             <div className={`singleAnswer ${accepted ? 'accepted' : ''}`}>
 
-                                {user.username == props.question.username || (user.role && parseInt(user.role)) && (
+                                {(user.username == props.question.username || (user.role && parseInt(user.role))) && (
                                     <div className="accept" title='Chấp nhận câu trả lời này'>
                                         <i className="fa fa-check" onClick={() => onAccept(answer._id)}></i>
                                     </div>
